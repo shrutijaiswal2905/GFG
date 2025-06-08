@@ -11,7 +11,7 @@ class Solution {
     }
 
     // Collect elements that appear more than once
-    for (const auto& pair : freq) {
+    for (auto pair : freq) {
         if (pair.second > 1) {
             result.push_back(pair.first);
         }
