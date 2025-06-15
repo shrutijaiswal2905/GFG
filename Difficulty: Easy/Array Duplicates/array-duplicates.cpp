@@ -6,7 +6,7 @@ class Solution {
         vector<int> result;
 
     // Count frequency of each element
-    for (int num : arr) {
+    for (int num: arr) {
         freq[num]++;
     }
 
