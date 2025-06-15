@@ -1,6 +1,7 @@
 class Solution {
   public:
     int transform(string A, string B) {
+        // code here.
         int m = A.length(), n = B.length();
         if(m!=n){
             return -1;
@@ -31,6 +32,4 @@ class Solution {
         }
         return res;
     }
-        // code here.
-
 };
