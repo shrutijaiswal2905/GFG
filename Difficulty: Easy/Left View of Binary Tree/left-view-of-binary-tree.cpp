@@ -38,15 +38,12 @@ class Solution {
     }
     
     void recurssion(Node *root, int level, vector<int> &res){
-        
         if(root==NULL){
             return;
         }
-        
         if(level==res.size()){
             res.push_back(root->data);
         }
-        
         recurssion(root->left,level+1,res);
         recurssion(root->right,level+1,res);
     }
