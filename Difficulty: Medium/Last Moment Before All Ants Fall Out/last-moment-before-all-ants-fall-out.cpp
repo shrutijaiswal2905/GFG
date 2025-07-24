@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    int getLastMoment(int n, vector<int>& left, vector<int>& right) {
+        // code here
+        int a=0;
+        int b=INT_MAX;
+        if(left.size()>0){
+            for(int i=0;i<left.size();i++){
+                a=max(a,left[i]);
+            }
+        }
+        if(right.size()>0){
+            for(int i=0;i<right.size();i++){
+                b=min(b,right[i]);
+            }
+        }
+        return max(a,n-b);
+    }
+};
