@@ -1,33 +1,31 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 class Solution {
-public:
-    string findLargest(vector<int>& arr) {
-        vector<string> strArr;
-        
-        // Convert integers to strings
-        for (int num : arr) {
-            strArr.push_back(to_string(num));
+  public:
+    static bool comp(string a, string b) {
+         return a + b > b + a;
+    }
+
+    string findLargest(vector<int> &arr) {
+        vector<string> nums;
+
+        // Convert each number to string
+        for (int i = 0; i < arr.size(); i++) {
+            nums.push_back(to_string(arr[i]));
         }
 
-        // Custom comparator
-        sort(strArr.begin(), strArr.end(), [](string a, string b) {
-            return a + b > b + a;
-        });
+        // Sort using custom comparator
+        sort(nums.begin(), nums.end(), comp);
 
-        // Handle all zeros case
-        if (strArr[0] == "0") {
+        // Handle case when all numbers are zero
+        if (nums[0] == "0") {
             return "0";
         }
 
-        // Concatenate the result
-        string result = "";
-        for (string s : strArr) {
-            result += s;
+        // Concatenate result
+        string ans = "";
+        for (int i = 0; i < nums.size(); i++) {
+            ans += nums[i];
         }
 
-        return result;
+        return ans;
     }
 };
-
