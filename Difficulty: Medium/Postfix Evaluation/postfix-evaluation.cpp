@@ -1,28 +1,46 @@
-#include <vector>
-#include <stack>
-#include <string>
-#include <cmath>    // for pow
-using namespace std;
-
 class Solution {
-public:
-    int evaluate(vector<string>& s) {
-        stack<int> st;
-        for (int i = 0; i < s.size(); i++) {
-            if (isdigit(s[i][0]) || (s[i][0] == '-' && s[i].size() > 1)) {
-                st.push(stoi(s[i]));
-            } else {
-                int op2 = st.top(); st.pop();
-                int op1 = st.top(); st.pop();
-                switch (s[i][0]) {  // access the first character
-                    case '+': st.push(op1 + op2); break;
-                    case '-': st.push(op1 - op2); break;
-                    case '*': st.push(op1 * op2); break;
-                    case '/': st.push(op1 / op2); break;
-                    case '^': st.push(pow(op1, op2)); break;
-                }
+  public:
+    int evaluatePostfix(vector<string>& arr) {
+        // code here
+        vector<double>s;
+        int n=arr.size();
+        for(auto &i:arr){
+            if(i!="+"&&i!="-"&&i!="*"&&i!="/"&&i!="^"){
+                int x=stoi(i);
+                s.push_back(x);
             }
-        }
-        return st.top();
+            else{
+                
+                double ans=0;
+                if (i == "+") {
+    ans = s[s.size() - 2] + s.back();
+    s.pop_back(); s.pop_back();
+    s.push_back(ans);
+                    }
+                  else if (i == "-") {
+    ans = s[s.size() - 2] - s.back();
+    s.pop_back(); s.pop_back();
+    s.push_back(ans);
+}
+                  else if (i == "*") {
+    ans = s[s.size() - 2] * s.back();
+    s.pop_back(); s.pop_back();
+    s.push_back(ans);
+}
+                   else if (i == "/") {
+    ans = floor(s[s.size() - 2] / s.back());
+    s.pop_back(); s.pop_back();
+    s.push_back(ans);
+}
+                    else if (i == "^") { 
+    ans = pow(s[s.size() - 2], s.back());
+    s.pop_back(); s.pop_back();
+    s.push_back(ans);
+}
+
+                           
+ }
+           }
+       return s[0]; 
     }
 };
