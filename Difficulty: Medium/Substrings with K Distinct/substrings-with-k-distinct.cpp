@@ -1,58 +1,38 @@
 class Solution {
   public:
-    int countSubstr(string& s, int k) {
-        unordered_map<char,int> mp;
-        
+    int atmostK(string &s, int k){
         int i = 0;
         int j = 0;
         int n = s.size();
         int count = 0;
-
-//finding the number of subtstrings with >=k+1 distinct characters 
-        while(i<n && j<n)
-        {
-            mp[s[j]]++;
-            if(mp.size()==k+1)
-            {
-                while(mp.size() == k+1)
-                {
-                    count = count + n - j;
-                    mp[s[i]]--;
-                    if(mp[s[i]] == 0)
-                    mp.erase(s[i]);
-                    i++;
+        // unordered_map<char,int>m;
+        vector<int>m(26,0);
+        
+        int unique = 0;
+        
+        while(j<n){
+            if(m[s[j] - 'a'] == 0){
+                unique++;
+            }       
+            m[s[j]-'a']++;
+            
+            while(unique > k){
+                m[s[i]-'a']--;
+                if(m[s[i]-'a'] == 0){
+                    unique--;
                 }
+                i++;
             }
-            j++;
+            
+            count += (j-i+1);
+            ++j;
         }
         
-        i = 0;
-        j = 0;
-        int count2 = 0;
-        mp.clear();
-
-//finding the number of substring with >=k distinct characters
-        while(i<n && j<n)
-        {
-            mp[s[j]]++;
-            if(mp.size() == k)
-            {
-                while(mp.size()==k)
-                {
-                    count2 = count2 + (n-j);
-                    mp[s[i]]--;
-                    if(mp[s[i]] == 0)
-                    mp.erase(s[i]);
-                    i++;
-                }
-            }
-            j++;
-        }
-
-//finding their difference....
-        int ans =count2 - count;
-        return ans;
+        return count;
     }
-
-
+    
+    int countSubstr(string& s, int k) {
+        return atmostK(s,k) - atmostK(s,k-1);
+    }
 };
+
